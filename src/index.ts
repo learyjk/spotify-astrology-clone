@@ -5,10 +5,8 @@ window.Webflow ||= [];
 window.Webflow.push(() => {
   // split the 'Astrology' heading into character spans
   const splitHeading = new SplitType('.h1');
-
   // define a master timeline
   const master = gsap.timeline();
-
   master.add(counter(loader().totalDuration())).add(header());
 
   function counter(duration: number) {
@@ -49,24 +47,24 @@ window.Webflow.push(() => {
           duration: 1,
           ease: 'power4.out',
         },
-        '<+0.1'
+        '<+0.1' // 0.1 seconds after the start of the previous animation
       )
       // fill circle with blue, with pause at 50%
       .to(
-        '.circle-blue',
+        '.circle-fill-blue',
         {
           height: '50%',
           duration: 1,
           ease: 'power4.out',
         },
-        '<'
+        '<' // starts at same time as the start of the previous animation
       )
-      .to('.circle-blue', {
+      .to('.circle-fill-blue', {
         height: '100%',
         duration: 1,
         ease: 'power4.out',
       })
-      // aniamte blue panel from bottom just as circle is filled with blue
+      // animate blue panel from bottom just as circle is filled with blue
       .to(
         '.panel-blue',
         {
@@ -74,11 +72,11 @@ window.Webflow.push(() => {
           duration: 1,
           ease: 'power2.out',
         },
-        '>-0.7'
+        '>-0.7' // start 0.7 second before the end of the previous animation
       )
       // fill circle with yellow just as its blue fill finsihed and blue panel starts
       .to(
-        '.circle-yellow',
+        '.circle-fill-yellow',
         {
           height: '100%',
           duration: 1,
@@ -87,12 +85,12 @@ window.Webflow.push(() => {
         '<'
       )
       // expanding circles
-      // "breathe in" with '.circle-wrap' which has the clip-path applied
-      .to('.circle-wrap', {
+      // "breathe in" with '.circle-mask' which has the clip-path applied
+      .to('.circle-mask', {
         scale: 0.9,
       })
-      // scale up '.circle-wrap' (clip path)
-      .to('.circle-wrap', {
+      // scale up '.circle-mask' (clip path)
+      .to('.circle-mask', {
         scale: 3,
         duration: 1,
       })
@@ -100,7 +98,7 @@ window.Webflow.push(() => {
       .to(
         '.circle-orange-final',
         {
-          scale: 2, // sacling to size of circle-wrap, which is also scaling.
+          scale: 2, // sacling to size of circle-mask, which is also scaling.
           duration: 1.5,
         },
         '<'
